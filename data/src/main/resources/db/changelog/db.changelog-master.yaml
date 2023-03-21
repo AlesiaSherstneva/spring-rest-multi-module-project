@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-master.yaml
+  - changeSet:
+      id: 1
+      author: a.sherstneva
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: lastname
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: firstname
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: patronymic
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(15)
+                  constraints:
+                    nullable: false
