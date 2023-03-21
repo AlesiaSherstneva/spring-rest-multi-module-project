@@ -10,8 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>configuration</module>
         <module>controller</module>
+        <module>service</module>
         <module>data</module>
     </modules>
 
