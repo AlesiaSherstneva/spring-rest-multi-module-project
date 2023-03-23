@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,11 +33,11 @@ public class UsersController {
     }
 
     @GetMapping()
-    public List<UserDTO> showAllUsers() {
-        return userService.findAll()
+    public List<UserDTO> showAllUsers(@RequestParam(value = "page", required = false,
+            defaultValue = "1") int page) {
+        return userService.findAndPageAll(page - 1)
                 .stream()
                 .map(this::convertToUserDTO)
-                .sorted(Comparator.comparing(UserDTO::getEmail))
                 .collect(Collectors.toList());
     }
 
