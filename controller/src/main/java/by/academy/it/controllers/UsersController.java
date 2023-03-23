@@ -43,8 +43,8 @@ public class UsersController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> addNewUser(@RequestBody @Valid UserDTO userDTO,
-                                                 BindingResult bindingResult) {
+    public ResponseEntity<HttpStatus> createNewUser(@RequestBody @Valid UserDTO userDTO,
+                                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder errorMessage = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -62,14 +62,17 @@ public class UsersController {
     }
 
     @ExceptionHandler
-    private ResponseEntity<ErrorResponse> handlePatternException(UserNotCreatedException exception) {
-        ErrorResponse response = new ErrorResponse(exception.getMessage());
+    private ResponseEntity<ErrorResponse> handleException(UserNotCreatedException exception) {
+        ErrorResponse response = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), exception.getMessage(),
+                System.currentTimeMillis());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidFormatException.class)
-    private ResponseEntity<ErrorResponse> handleRoleException() {
-        ErrorResponse response = new ErrorResponse("Role should have one of values: " + Arrays.toString(Role.values()));
+    private ResponseEntity<ErrorResponse> handleException() {
+        ErrorResponse response = new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
+                "Role should have one of values: " + Arrays.toString(Role.values()),
+                System.currentTimeMillis());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
