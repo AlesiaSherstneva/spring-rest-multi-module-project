@@ -1,13 +1,13 @@
 package by.academy.it.controllers;
 
 import by.academy.it.dto.UserDTO;
+import by.academy.it.dto.UserMapper;
 import by.academy.it.exceptions.ErrorResponse;
 import by.academy.it.exceptions.UserNotCreatedException;
 import by.academy.it.pojos.Role;
 import by.academy.it.pojos.User;
 import by.academy.it.services.UserService;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +24,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/users")
 public class UsersController {
     private final UserService userService;
-    private final ModelMapper modelMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UsersController(UserService userService, ModelMapper modelMapper) {
+    public UsersController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
-        this.modelMapper = modelMapper;
+        this.userMapper = userMapper;
     }
 
     @GetMapping()
@@ -42,7 +42,7 @@ public class UsersController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> createNewUser(@RequestBody @Valid UserDTO userDTO,
+    public ResponseEntity<HttpStatus> createNewUser(@RequestBody @Valid User user,
                                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder errorMessage = new StringBuilder();
@@ -55,7 +55,7 @@ public class UsersController {
             }
             throw new UserNotCreatedException(errorMessage.toString());
         }
-        User user = convertToUser(userDTO);
+        user.setId(0);
         userService.saveUser(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -75,11 +75,7 @@ public class UsersController {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    private User convertToUser(UserDTO userDTO) {
-        return modelMapper.map(userDTO, User.class);
-    }
-
     private UserDTO convertToUserDTO(User user) {
-        return modelMapper.map(user, UserDTO.class);
+        return userMapper.mapUserToUserDTO(user);
     }
 }
