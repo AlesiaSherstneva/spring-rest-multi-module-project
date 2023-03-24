@@ -24,6 +24,20 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
@@ -68,6 +82,60 @@
                         <configuration>
                             <skip>true</skip>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.7.1</version>
+                <executions>
+                    <execution>
+                        <id>create_database</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                        <configuration>
+                            <url>jdbc:mysql://localhost:3306/multi-project?createDatabaseIfNotExist=true</url>
+                            <username>root</username>
+                            <password>root</password>
+                            <driver>com.mysql.cj.jdbc.Driver</driver>
+                            <changeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</changeLogFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create_test_database</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                        <configuration>
+                            <url>jdbc:mysql://localhost:3306/multi-project-test?createDatabaseIfNotExist=true</url>
+                            <username>root</username>
+                            <password>root</password>
+                            <driver>com.mysql.cj.jdbc.Driver</driver>
+                            <changeLogFile>src/main/resources/db/changelog/db.changelog-test.yaml</changeLogFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>satisfy-liquibase</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.directory}/test-classes" />
+                                <mkdir dir="${project.build.directory}/classes" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

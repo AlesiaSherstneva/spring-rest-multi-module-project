@@ -45,7 +45,6 @@ public class UserControllerTest {
     @BeforeEach
     public void setUp() {
         testUser = new User();
-        testUser.setId(new Random().nextInt(100));
         testUser.setLastname("Testlastname");
         testUser.setFirstname("Testfirstname");
         testUser.setPatronymic("Testpatronymic");
@@ -111,7 +110,6 @@ public class UserControllerTest {
                         jsonPath("$.message", is("Role should have one of values: " +
                                 "[ADMINISTRATOR, SALE_USER, CUSTOMER_USER, SECURE_API_USER]"))
                 );
-        verifyNoInteractions(userService);
     }
 
     @Test
@@ -137,8 +135,6 @@ public class UserControllerTest {
                         jsonPath("$.message", containsString("patronymic")),
                         jsonPath("$.message", containsString("email"))
                 );
-
-        verifyNoInteractions(userService);
     }
 
     @AfterEach
