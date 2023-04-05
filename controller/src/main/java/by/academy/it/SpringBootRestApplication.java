@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class ControllerApplication {
+public class SpringBootRestApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ControllerApplication.class, args);
+        SpringApplication.run(SpringBootRestApplication.class, args);
     }
 
     @Bean

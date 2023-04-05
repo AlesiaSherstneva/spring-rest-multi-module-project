@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
@@ -34,10 +36,12 @@ public class UserService {
         return receivedUsers;
     }
 
+    @Transactional
     public void saveUser(User user) {
         LOGGER.trace("Entering saveUser() method");
         LOGGER.debug("Saving new user with email " + user.getEmail());
 
+        user.setId(null);
         userRepository.save(user);
 
         LOGGER.info("User with email " + user.getEmail() + "was successfully saved");

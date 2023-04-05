@@ -1,6 +1,5 @@
 package by.academy.it.services;
 
-import by.academy.it.ServiceApplication;
 import by.academy.it.pojos.User;
 import by.academy.it.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -18,7 +17,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = ServiceApplication.class)
+@SpringBootTest
 public class UserServiceTest {
     @MockBean
     private UserRepository userRepository;

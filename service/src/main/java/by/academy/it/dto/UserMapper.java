@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     public UserDTO mapUserToUserDTO(User user) {
         return UserDTO.builder()
-                .fullname(user.getLastname() + " " + user.getFirstname() + " " + user.getPatronymic())
+                .fullname(String.format("%s %s %s", user.getLastname(), user.getFirstname(), user.getPatronymic()))
                 .email(user.getEmail())
                 .role(user.getRole())
                 .build();

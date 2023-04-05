@@ -11,9 +11,9 @@ password: root
 ```
 
 Запуск проекта можно осуществить двумя способами:
-1. запустить класс `ControllerApplication` в папке `.../controller/src/main/java/by/academy/it/` в среде разработки;
-2. запустить файл `controller-1.0` в папке `.../controller/target/` командой `java -jar controller-1.0.jar`
-в командной строке.
+1. запустить класс `SpringBootRestApplication` в папке `...\controller\src\main\java\by\academy\it\` в среде разработки;
+2. запустить файл `spring-rest-app` в папке `...\controller\target\` командой `java -jar spring-rest-app.jar`
+в командной строке. Остановить процесс можно командой `Clrl`+`C`.
 
 Приложение разворачивается в контекстном пути `localhost:8083/users`. Реализованы два запроса:
 - `GET` с параметром `page` (по умолчанию равен 1) - возвращает от нуля до десяти пользователей на странице, 

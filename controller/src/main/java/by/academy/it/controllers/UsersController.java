@@ -71,7 +71,6 @@ public class UsersController {
             throw new UserNotCreatedException(errorMessage.toString());
         }
 
-        user.setId(0);
         userService.saveUser(user);
 
         LOGGER.info("User with email " + user.getEmail() + " was successfully created");

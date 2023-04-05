@@ -1,6 +1,5 @@
 package by.academy.it.integration;
 
-import by.academy.it.ControllerApplication;
 import by.academy.it.pojos.Role;
 import by.academy.it.pojos.User;
 import by.academy.it.repositories.UserRepository;
@@ -31,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@SpringBootTest(classes = ControllerApplication.class)
+@SpringBootTest
 @WebAppConfiguration
 @TestPropertySource("classpath:application-test.properties")
 @TestMethodOrder(MethodOrderer.Random.class)

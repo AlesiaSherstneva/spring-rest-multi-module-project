@@ -1,8 +1,6 @@
 package by.academy.it.pojos;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,7 +14,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @NotNull(message = "Lastname should not be empty")
     @Size(max = 40, message = "Lastname should not be greater than 40 symbols")

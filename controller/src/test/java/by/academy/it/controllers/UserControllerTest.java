@@ -1,6 +1,5 @@
 package by.academy.it.controllers;
 
-import by.academy.it.ControllerApplication;
 import by.academy.it.pojos.Role;
 import by.academy.it.pojos.User;
 import by.academy.it.services.UserService;
@@ -27,7 +26,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest(classes = ControllerApplication.class)
+@SpringBootTest
 public class UserControllerTest {
     private MockMvc mockMvc;
 
@@ -117,7 +116,7 @@ public class UserControllerTest {
         // set empty lastname
         testUser.setLastname("");
         // set firstname more than 20 characters
-        testUser.setFirstname("A" + "a".repeat(20));
+        testUser.setFirstname(String.format("A%s", "a".repeat(20)));
         // set patronymic with numbers
         testUser.setPatronymic("1234567890");
         // set wrong email
